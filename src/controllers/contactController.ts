@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { db } from "../dataSource/db";
-import { user } from '../models/user';
+import { db } from "../dataSource/db.js";
+import { user } from '../models/user.js';
 
  export class contactController{
 async  getAllContacts() {      // chera inja arg nadare getall...
@@ -9,7 +9,7 @@ async  getAllContacts() {      // chera inja arg nadare getall...
             const contactRepository = db.getRepository(user);
             const AllContacts = await contactRepository.find();
             // res.send(user)   error dad tu router camnet kardam
-            return user
+            return AllContacts
             console.log("listo nagerefti");
           } catch (error) {
             // res.send({ error: 'natunesti hame usera ro begiri' })
@@ -21,14 +21,13 @@ async  getAllContacts() {      // chera inja arg nadare getall...
       
          async CreateContact(req: Request, res: Response) { // in async haye avalesho nafahmidam
           try {
-            const contactRepository = db.getTreeRepository(user);
+            const contactRepository = db.getRepository(user);
             const newContact = contactRepository.create(req.body);
              await contactRepository.save(newContact); 
             res.send(newContact)
             console.log("user sakhte shod");;
           } catch (error) {
-            res.send({ error: 'natunesti contact besazi' })
-            console.log("sakhte nashod contact");
+            console.log("sakhte nashod contact", error);
           }}
 
   async deleteContact(req: Request, res: Response) {
@@ -39,7 +38,7 @@ async  getAllContacts() {      // chera inja arg nadare getall...
                 res.send({ error: 'Contact peyda nashod' })
                 console.log("Contact peyda nashod")}
  else {
-                 contactRepository.remove(contact);
+                await contactRepository.remove(contact);
                 res.send("mokhatab hazf shod")}
               } 
               catch (error)

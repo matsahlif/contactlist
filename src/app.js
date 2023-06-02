@@ -1,6 +1,7 @@
 import express from 'express';
 const app = express();
-import { db } from '.. / dataSource /db.js'
+import { router } from "../dist/routs/phoneBookRouter.js"
+
 
 // const db = {
 //     port: 5432,
@@ -8,12 +9,14 @@ import { db } from '.. / dataSource /db.js'
 // };
 // await db(ConnectionOptions);
 
-db.initialize()
-    .then(() => {
-        app.listen(8000, () => {
-            console.log("be server vasl shodim");
-        })
+// db.initialize()
+//     .then(() => {
+app.use(router);
+app.listen(8000, () => {
+        console.log("be server vasl shodim");
     })
-    .catch((error) => {
-        console.log("db init error", error);
-    });
+    // })
+    // })
+    // .catch((error) => {
+    //     console.log("db init error", error);
+    // })

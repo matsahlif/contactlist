@@ -2,31 +2,28 @@ import { db } from "../dataSource/db.js";
 import { user } from '../models/user.js';
 export class contactController {
     async getAllContacts() {
-        // async  getAllContacts(req:Request, res:Response)  error dad
-        try { // public budano bekhun
-            const contactRepository = db.getRepository(user);
-            const AllContacts = await contactRepository.find();
-            // res.send(user)   error dad tu router camnet kardam
-            return AllContacts;
-            console.log("listo nagerefti");
-        }
-        catch (error) {
-            // res.send({ error: 'natunesti hame usera ro begiri' })
-            // eyne error balaii
-            console.log("natunesti hame usera ro begiri");
-            return { error: "natunesti hame usera ro begiri" };
-        }
-    } //???? okeye?
+            // async  getAllContacts(req:Request, res:Response)  error dad
+            try { // public budano bekhun
+                const contactRepository = db.getRepository(user);
+                const AllContacts = await contactRepository.find();
+                // res.send(user)   error dad tu router camnet kardam
+                return AllContacts;
+                console.log("listo nagerefti");
+            } catch (error) {
+                // res.send({ error: 'natunesti hame usera ro begiri' })
+                // eyne error balaii
+                console.log("natunesti hame usera ro begiri");
+                return { error: "natunesti hame usera ro begiri" };
+            }
+        } //???? okeye?
     async CreateContact(req, res) {
         try {
             const contactRepository = db.getRepository(user);
             const newContact = contactRepository.create(req.body);
             await contactRepository.save(newContact);
             res.send(newContact);
-            console.log("user sakhte shod");
-            ;
-        }
-        catch (error) {
+            console.log("user sakhte shod");;
+        } catch (error) {
             console.log("sakhte nashod contact", error);
         }
     }
@@ -37,13 +34,11 @@ export class contactController {
             if (!contact) {
                 res.send({ error: 'Contact peyda nashod' });
                 console.log("Contact peyda nashod");
-            }
-            else {
+            } else {
                 await contactRepository.remove(contact);
                 res.send("mokhatab hazf shod");
             }
-        }
-        catch (error) {
+        } catch (error) {
             res.send("mokhatab pak nashod");
             console.log("mokhatab pak nashod");
         }
@@ -54,8 +49,7 @@ export class contactController {
         if (!contact) {
             res.send({ error: 'Contact peyda nashod' });
             console.log("Contact peyda nashod");
-        }
-        else {
+        } else {
             res.send(contact);
         }
     }
@@ -68,8 +62,8 @@ export class contactController {
             console.log("Contact peyda nashod");
         }
         let { name1, number1, company1 } = req.body;
-        name1 = contact1?.name, // doroste?
-            number1 = contact1?.company,
-            company1 = contact1?.number;
+        name1 = contact1name, // doroste?
+            number1 = contact1.company,
+            company1 = contact1.number;
     }
 }

@@ -1,4 +1,3 @@
-import { DataSource } from "typeorm";
 
 // export const db: DataSource = new DataSource({
 //   type: "postgres",
@@ -6,7 +5,14 @@ import { DataSource } from "typeorm";
 // });
 // vaaaa chera bara mano err dad?
 
+// export const db: DataSource = new DataSource({
+//   type: "mongodb",
+//   port: 8000,
+// });         
+import { DataSource } from "typeorm";
+
 export const db: DataSource = new DataSource({
-  type: "mongodb",
-  port: 8000,
-});         
+  type: "postgres",
+  port: 8000
+
+});

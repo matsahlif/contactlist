@@ -1,5 +1,9 @@
 import express from 'express';
-import { db } from './dataSource/db';
+// import { db } from '../src/dataSource/db.js'
+import { router  } from "./routs/phoneBookRouter.js";
+
+    
+// import { db } from './dataSource/db';
 
 const app = express();
 // const db : ConnectionOptions = {
@@ -19,11 +23,19 @@ const app = express();
 // export default app
 
 // in foldero haaaaaatman befahm 
-db.initialize()
-.then(()=>{
-    app.listen(8000,()=>{    console.log("be server vasl shodim");
-})
-})
-.catch((error:any)=>{
-    console.log("db init error", error);
+import { DataSource } from "typeorm";
+
+export const db: DataSource = new DataSource({
+  type: "postgres",
+  port: 8000
+
 });
+
+
+app.use(router);
+try{
+    app.listen(8000,()=>{    console.log("be server vasl shodim")});
+}
+catch(error){
+    console.log("db init error", error);}
+
